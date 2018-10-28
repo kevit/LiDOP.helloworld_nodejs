@@ -33,7 +33,7 @@ pipeline {
         dir("./app") {
           withSonarQubeEnv('Sonarqube') {
             withCredentials([usernamePassword(credentialsId: 'lidop', passwordVariable: 'rootPassword', usernameVariable: 'rootUser')]) {
-              sh 'docker run --rm  -v /tmp/workspace/ProjectName/Build_Application/app/:/work -e SERVER=http://sonarqube.service.lidop.local:8084/sonarqube -e PROJECT_KEY=test  registry.service.lidop.local:5000/lidop/sonarscanner:latest'
+              sh 'docker run --rm  -v ${PWD}/app/:/work -e SERVER=http://sonarqube.service.lidop.local:8084/sonarqube -e PROJECT_KEY=helloworldnodejs  registry.service.lidop.local:5000/lidop/sonarscanner:latest'
             }
           }
           timeout(time: 1, unit: 'HOURS') {
