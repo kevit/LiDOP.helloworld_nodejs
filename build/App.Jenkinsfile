@@ -82,7 +82,7 @@ pipeline {
           try{
             dir("./app"){
               sh 'mkdir -p .results'
-              sleep 5
+              sleep 30
               sh "docker run --dns ${IPADDRESS} --rm -v $WORKSPACE/.results:/work/.results helloworldnodejs npm run-script itest"
             }
           }
