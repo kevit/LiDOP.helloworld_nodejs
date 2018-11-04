@@ -99,7 +99,7 @@ pipeline {
   post { 
     always { 
       script {
-        currentBuild.description = "goto <a href=http://${PUBLIC_IPADDRESS}:9100>App</a>"
+        currentBuild.description = "goto <a href=https://${PUBLIC_IPADDRESS}/9100/>App</a>"
         try {
           sh "docker rm -f helloworldnodejs-unittest"
         }
