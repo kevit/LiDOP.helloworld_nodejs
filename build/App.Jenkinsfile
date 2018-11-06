@@ -82,7 +82,7 @@ pipeline {
           try{
             dir("./app"){
               sh 'mkdir -p .results'
-              sleep 30
+              sh 'until [ $(docker inspect -f {{.State.Running}} helloworldnodejs) = "true" ]; do sleep 1; echo "wait for container start";  done;'
               sh "docker run --dns ${IPADDRESS} --rm -v $WORKSPACE/.results:/work/.results helloworldnodejs npm run-script itest"
             }
           }
