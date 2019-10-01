@@ -60,7 +60,7 @@ pipeline {
       }
     }
  
-    stage("Deploy App") {
+    stage("Test Deployment") {
       steps {
         script {
           try {
@@ -76,7 +76,7 @@ pipeline {
       }
     }
  
-    stage("Integration Test") {
+      stage("Integration Test") {
       steps {
         script {
           try{
@@ -93,13 +93,28 @@ pipeline {
         }
       }
     }
-  
+    //Only deploy to Prod after integratio tests passed
+     stage("Prod Deployment") {
+      steps {
+        script {
+          try {
+            sh "docker rm -f helloworld_app"
+          }
+          catch(err) {
+            echo "no running instance."
+          }
+          finally {
+            sh "docker run -d -p 9200:80 --name helloworld_app helloworldnodejs"
+          }
+        }
+      }
+    }
   }
  
   post { 
     always { 
       script {
-        currentBuild.description = "goto <a href=https://www.${PUBLIC_IPADDRESS}.xip.io/port/9100/>App</a>"
+        currentBuild.description = "goto <a href=https://www.${PUBLIC_IPADDRESS}.xip.io/port/9200/>App</a>"
         try {
           sh "docker rm -f helloworldnodejs-unittest"
         }
@@ -109,5 +124,4 @@ pipeline {
       }
     }
   }
-
 }
