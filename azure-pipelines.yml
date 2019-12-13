@@ -18,6 +18,5 @@ steps:
 - script: |
     cd app/
     npm audit
-    npm install
-    npm run build
-  displayName: 'npm install and build'
+    npm ci
+  displayName: 'npm audit and ci'
