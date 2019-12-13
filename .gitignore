@@ -1,2 +1,5 @@
 app/.results/**
 app/*.png
+*/node_modules/**
+.idea/
+*.iml
