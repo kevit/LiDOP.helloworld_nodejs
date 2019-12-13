@@ -2,6 +2,12 @@ var port=process.env.PORT || 80;
 
 var vcap_services_env = process.env.VCAP_SERVICES || null
 var backend_service_url = loadBackendURL()
+var http = require('http');
+var options = {
+  host: backend_service_url,
+  path: '/api',
+  method: 'GET'
+};
 
 function loadBackendURL(){
  if (vcap_services_env === null){
@@ -34,9 +40,27 @@ app.get('/api', function (req, res) {
   res.send('Hello World.')
 })
 
-app.get('/', function (req, res) {
-  res.render('index', { title: 'LiDOP', message: 'Hello LiDOP!'});
+app.get('/', function (req, response) {
+
+   http.request(options, function(res) {
+        res.setEncoding('utf8');
+        res.on('data', function (chunk) {
+        console.log(res.statusCode)
+        process.stdout.write(res.statusCode);
+        if (res.statusCode >= 200 && res.statusCode <= 299){
+            response.render('index', { title: 'LiDOP', message: chunk , info_message: "It works" });
+        }
+        else{
+            response.render('index', { title: 'LiDOP', info_message: "No connection to backend", message: "Hello LiDOP!" });
+        }
+        }
+        );
+    }).on('error',function(err){
+       console.error(err);
+       response.render('index', { title: 'LiDOP', info_message: "Error" + err, message: "Hello LiDOP!" });
+       }).end();
 });
+
 
 // Launch listening server on port 80
 var server = app.listen(port, function () {
