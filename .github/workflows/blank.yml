@@ -1,0 +1,31 @@
+on: push
+name: Main Workflow
+jobs:
+  buildJob:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build Docker container
+        run: docker build -t helloworldnodejs ./app
+  runTests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build Docker container
+        run: docker build -t helloworldnodejs ./app
+      - name: Prepare container for Unittests
+        run: docker run -d --name helloworldnodejs-unittest helloworldnodejs
+      - name: Run tests
+        run: docker exec helloworldnodejs-unittest npm test
+      - name: Run integration tests
+        run: docker exec helloworldnodejs npm run-script itest
+      - name: Cleaning up
+        run: docker rm -f helloworldnodejs-unittest
+  sonarCloudTrigger:
+    name: SonarCloud Trigger
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
