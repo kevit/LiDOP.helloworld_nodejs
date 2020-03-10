@@ -8,23 +8,15 @@ jobs:
       - name: Build Docker container
         run: docker build -t helloworldnodejs .
         working-directory: ./app
-  runTestonDocker:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/docker@master
-      - name: Test docker action
-        id: test
+      - uses: whoan/docker-build-with-cache-action@v4
         with:
-          what-to-run: 'npm test'
-      - name: Get the output time
-        run: echo "${{ steps.test.outputs.time }}"
+          image_name: helloworldnodejs
+        working-directory: ./app
+
   runTests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - name: Build Docker container
-        run: docker build -t helloworldnodejs .
-        working-directory: ./app
       - name: Prepare container for Unittests
         run: docker run -d --name helloworldnodejs-unittest helloworldnodejs
         working-directory: ./app
