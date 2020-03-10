@@ -6,10 +6,11 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - uses: whoan/docker-build-with-cache-action@v4
+        working-directory: ./app
         with:
           image_name: kevit/helloworldnodejs
           image_tag:  "helloworldnodejs"
-          dockerfile: ./app/Dockerfile
+          dockerfile: ./Dockerfile
       - name: Show docker images
         run: docker images -a
       - name: Prepare container for Unittests
