@@ -11,16 +11,22 @@ jobs:
   runTests:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@master
       - name: Build Docker container
-        run: docker build -t helloworldnodejs ./app
+        run: docker build -t helloworldnodejs .
+        working-directory: ./app
       - name: Prepare container for Unittests
         run: docker run -d --name helloworldnodejs-unittest helloworldnodejs
+        working-directory: ./app
       - name: Run tests
         run: docker exec helloworldnodejs-unittest npm test
+        working-directory: ./app
       - name: Run integration tests
         run: docker exec helloworldnodejs npm run-script itest
+        working-directory: ./app
       - name: Cleaning up
         run: docker rm -f helloworldnodejs-unittest
+        working-directory: ./app
   sonarCloudTrigger:
     name: SonarCloud Trigger
     runs-on: ubuntu-latest
