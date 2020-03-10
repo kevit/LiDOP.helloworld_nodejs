@@ -10,6 +10,8 @@ jobs:
           image_name: kevit/helloworldnodejs
           image_tag:  kevit/helloworldnodejs
           dockerfile: ./app/Dockerfile
+      - name: Show docker images
+        run: docker images -a
       - name: Prepare container for Unittests
         run: docker run -d --name helloworldnodejs-unittest kevit/helloworldnodejs
       - name: Run tests
