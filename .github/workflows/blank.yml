@@ -11,6 +11,7 @@ jobs:
       - uses: whoan/docker-build-with-cache-action@v4
         with:
           image_name: kevit/helloworldnodejs
+          image_tag:  kevit/helloworldnodejs
           dockerfile: ./app/Dockerfile
   runTests:
     runs-on: ubuntu-latest
