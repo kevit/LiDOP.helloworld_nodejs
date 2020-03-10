@@ -8,7 +8,7 @@ jobs:
       - uses: whoan/docker-build-with-cache-action@v4
         with:
           image_name: kevit/helloworldnodejs
-          image_tag:  kevit/helloworldnodejs
+          image_tag:  "helloworldnodejs"
           dockerfile: ./app/Dockerfile
       - name: Show docker images
         run: docker images -a
