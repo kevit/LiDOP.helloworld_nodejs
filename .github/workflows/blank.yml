@@ -14,7 +14,7 @@ jobs:
       - name: Prepare container for Unittests
         run: docker run helloworldnodejs ls /
       - name: Prepare container for Unittests
-        run: docker run helloworldnodejs npm test
+        run: docker run helloworldnodejs npm install && npm test
       - name: Run integration tests
         run: docker run helloworldnodejs npm run-script itest
   sonarCloudTrigger:
