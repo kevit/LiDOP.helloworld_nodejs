@@ -5,7 +5,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Build Docker container
-        run: docker build -t helloworldnodejs ./app
+        run: docker build -t helloworldnodejs .
+        working-directory: ./app
   runTests:
     runs-on: ubuntu-latest
     steps:
