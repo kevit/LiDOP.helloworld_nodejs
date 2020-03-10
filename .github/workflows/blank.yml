@@ -1,38 +1,21 @@
 on: push
 name: Main Workflow
 jobs:
-  buildJob:
+  BuildandTestJob:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - name: Build Docker container
-        run: docker build -t helloworldnodejs .
-        working-directory: ./app
       - uses: whoan/docker-build-with-cache-action@v4
         with:
           image_name: kevit/helloworldnodejs
           image_tag:  kevit/helloworldnodejs
           dockerfile: ./app/Dockerfile
-      - name: show images
-        run: docker images -a
-  runTests:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - name: show images
-        run: docker images -a
       - name: Prepare container for Unittests
         run: docker run -d --name helloworldnodejs-unittest kevit/helloworldnodejs
-        working-directory: ./app
       - name: Run tests
         run: docker exec helloworldnodejs-unittest npm test
-        working-directory: ./app
       - name: Run integration tests
         run: docker exec kevit/helloworldnodejs npm run-script itest
-        working-directory: ./app
-      - name: Cleaning up
-        run: docker rm -f helloworldnodejs-unittest
-        working-directory: ./app
   sonarCloudTrigger:
     name: SonarCloud Trigger
     runs-on: ubuntu-latest
