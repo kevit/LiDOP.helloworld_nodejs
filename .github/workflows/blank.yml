@@ -12,9 +12,9 @@ jobs:
       - name: Show docker images
         run: docker images -a
       - name: Prepare container for Unittests
-        run: docker run helloworldnodejs ls / && ls /work
+        run: docker run --rm -v ./app:/work helloworldnodejs npm install
       - name: Prepare container for Unittests
-        run: docker run helloworldnodejs npm install && npm test
+        run: docker run helloworldnodejs npm test
       - name: Run integration tests
         run: docker run helloworldnodejs npm run-script itest
   sonarCloudTrigger:
