@@ -13,7 +13,7 @@ jobs:
       - name: Show docker images
         run: docker images -a
       - name: Prepare container for Unittests
-        run: docker run -d --name helloworldnodejs-unittest kevit/helloworldnodejs
+        run: docker run -d --name helloworldnodejs-unittest my_awesome_image
       - name: Run tests
         run: docker exec helloworldnodejs-unittest npm test
       - name: Run integration tests
