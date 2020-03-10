@@ -13,10 +13,14 @@ jobs:
           image_name: kevit/helloworldnodejs
           image_tag:  kevit/helloworldnodejs
           dockerfile: ./app/Dockerfile
+      - name: show images
+        run: docker images -a
   runTests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
+      - name: show images
+        run: docker images -a
       - name: Prepare container for Unittests
         run: docker run -d --name helloworldnodejs-unittest kevit/helloworldnodejs
         working-directory: ./app
