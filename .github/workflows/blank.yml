@@ -12,7 +12,7 @@ jobs:
       - name: Show docker images
         run: docker images -a
       - name: Prepare container for Unittests
-        run: docker run --rm -v /app:/work helloworldnodejs npm install
+        run: docker run -v /app:/work helloworldnodejs npm install
       - name: Prepare container for Unittests
         run: docker run -v /app:/work helloworldnodejs npm test
       - name: Run integration tests
