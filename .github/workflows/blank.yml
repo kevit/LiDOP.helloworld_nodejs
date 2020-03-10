@@ -13,11 +13,9 @@ jobs:
       - name: Show docker images
         run: docker images -a
       - name: Prepare container for Unittests
-        run: docker run -d --name helloworldnodejs-unittest my_awesome_image
-      - name: Run tests
-        run: docker exec helloworldnodejs-unittest npm test
+        run: docker run my_awesome_image npm test
       - name: Run integration tests
-        run: docker exec kevit/helloworldnodejs npm run-script itest
+        run: docker run my_awesome_image npm run-script itest
   sonarCloudTrigger:
     name: SonarCloud Trigger
     runs-on: ubuntu-latest
