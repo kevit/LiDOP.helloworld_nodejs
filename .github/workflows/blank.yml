@@ -10,7 +10,7 @@ jobs:
           cd app
           docker build -t helloworldnodejs:latest .
       - name: Prepare container for Unittests
-        run: docker run -v /app:/work helloworldnodejs npm test
+        run: docker run helloworldnodejs npm test
       - name: Run integration tests
         run: docker run -v /app:/work helloworldnodejs npm run-script itest
   sonarCloudTrigger:
