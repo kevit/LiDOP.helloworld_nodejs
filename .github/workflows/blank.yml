@@ -11,8 +11,6 @@ jobs:
       - uses: whoan/docker-build-with-cache-action@v4
         with:
           image_name: helloworldnodejs
-        working-directory: ./app
-
   runTests:
     runs-on: ubuntu-latest
     steps:
