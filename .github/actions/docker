@@ -1,0 +1,15 @@
+name: 'Run in container'
+description: 'run in container'
+inputs:
+  what-to-run:  # id of input
+    description: 'what to run'
+    required: true
+    default: 'date'
+outputs:
+  time: # id of output
+    description: 'The time we greeted you'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.what-to-run }}
