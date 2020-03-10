@@ -13,6 +13,9 @@ jobs:
       - name: Show docker images
         run: docker images -a
       - name: Prepare container for Unittests
+        run: docker run my_awesome_image ls /
+        run: docker run my_awesome_image ls /work
+      - name: Prepare container for Unittests
         run: docker run my_awesome_image npm test
       - name: Run integration tests
         run: docker run my_awesome_image npm run-script itest
