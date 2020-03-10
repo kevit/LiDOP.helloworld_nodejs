@@ -4,6 +4,7 @@ jobs:
   buildJob:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@master
       - name: Build Docker container
         run: docker build -t helloworldnodejs .
         working-directory: ./app
