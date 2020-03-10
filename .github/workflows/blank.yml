@@ -10,20 +10,20 @@ jobs:
         working-directory: ./app
       - uses: whoan/docker-build-with-cache-action@v4
         with:
-          image_name: helloworldnodejs
+          image_name: kevit/helloworldnodejs
           dockerfile: ./app/Dockerfile
   runTests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
       - name: Prepare container for Unittests
-        run: docker run -d --name helloworldnodejs-unittest helloworldnodejs
+        run: docker run -d --name helloworldnodejs-unittest kevit/helloworldnodejs
         working-directory: ./app
       - name: Run tests
         run: docker exec helloworldnodejs-unittest npm test
         working-directory: ./app
       - name: Run integration tests
-        run: docker exec helloworldnodejs npm run-script itest
+        run: docker exec kevit/helloworldnodejs npm run-script itest
         working-directory: ./app
       - name: Cleaning up
         run: docker rm -f helloworldnodejs-unittest
