@@ -13,8 +13,11 @@ jobs:
     steps:
       - uses: actions/docker@master
       - name: Test docker action
+        id: test
         with:
           what-to-run: 'npm test'
+      - name: Get the output time
+        run: echo "${{ steps.test.outputs.time }}"
   runTests:
     runs-on: ubuntu-latest
     steps:
