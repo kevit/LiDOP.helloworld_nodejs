@@ -14,6 +14,7 @@ jobs:
         run: docker images -a
       - name: Prepare container for Unittests
         run: docker run my_awesome_image ls /
+      - name: test  
         run: docker run my_awesome_image ls /work
       - name: Prepare container for Unittests
         run: docker run my_awesome_image npm test
